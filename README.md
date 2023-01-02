@@ -15,5 +15,5 @@ docker build -t pydev:3.11.1 .
 ## Run docker container
 
 ```bash
-docker run --name pydev -p 10022:22 -v $(pwd)/root:/root --rm -it pydev:3.11.1
+docker run --name pydev -v root:/root -it -d --rm -p 10022:22 pydev:3.11.1
 ```

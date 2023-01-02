@@ -1,8 +1,5 @@
 FROM python:3.11.1
 
-# python print speed up
-ENV PYTHONUNBUFFERED 0
-
 # update and install requirements
 RUN apt-get update -y && \
     apt-get install -y openssh-server wget net-tools nano && \
@@ -12,11 +9,20 @@ RUN apt-get update -y && \
 # copy local file
 COPY sshd_config /etc/ssh/sshd_config
 
-# change directory to /mlflow
-WORKDIR /mlflow
+# python print speed up
+ENV PYTHONUNBUFFERED 0
+
+#set password
+RUN echo 'root:root' |chpasswd
+
+#make .ssh
+RUN mkdir /root/.ssh
 
 # expose port
 EXPOSE 22
 
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # cmd
-CMD ["service", "ssh", "start"]
+CMD ["python3"]
