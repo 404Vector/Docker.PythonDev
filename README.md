@@ -17,3 +17,9 @@ docker build -t pydev:3.11.1 .
 ```bash
 docker run --name pydev -v ${PWD}/root:/root -it -d --rm -p 10022:22 pydev:3.11.1
 ```
+
+## Run docker container with gpu
+
+```bash
+docker run --gpus all --name pydev -v ${PWD}/root:/root -it -d --rm -p 10022:22 pydev:3.11.1
+```
