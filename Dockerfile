@@ -8,6 +8,7 @@ RUN apt-get update -y && \
 
 # copy local file
 COPY sshd_config /etc/ssh/sshd_config
+COPY start_macro.py /start_macro.py
 
 # python print speed up
 ENV PYTHONUNBUFFERED 0
@@ -25,4 +26,4 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # cmd
-CMD ["python3"]
+ENTRYPOINT ["/bin/sh", "-c", "python3 start_macro.py & /bin/bash"]
